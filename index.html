@@ -22,7 +22,7 @@
 
 	<header class="container-fluid">
 
-<a href=''> <img src="/images/logo.png" alt="Travel Light Logo" class="company_logo">
+<a href=''> <img src="/images/logo.png" alt="Travel Light Logo" class="company_logo" onclick="downLoad()">
 
 <p class="resume_link"> Download version 1 </p> </a> 
 	</header>
@@ -120,7 +120,7 @@
 
   	<div class="w3-third">
     <div class="w3-card-2">
-    <img src="/images/filter.png" alt="Woman at desk highlighting reports on her computer screen" class="dedicated_support_image">
+    <img src="/images/filter.png"  onclick="showModal(this)" alt="/images/filter-large.png" class="dedicated_support_image">
     <div class="w3-container">
     <h3> SEARCH & FILTER </h3> 
 
@@ -135,7 +135,7 @@
   <div class="col-sm-4">
     <div class="w3-third">
     <div class="w3-card-2">
-    <img src="/images/business-tag.png" alt="Woman smiling" class="professional_service_image">
+    <img src="/images/business-tag.png" onclick="showModal(this)" alt="/images/business-tag-large.png" class="professional_service_image">
     <div class="w3-container">
     <h3> FIND PLACES OF INTEREST </h3> 
 
@@ -147,7 +147,7 @@
  
   <div class="col-sm-4"><div class="w3-third">
     <div class="w3-card-2">
-    <img src="/images/men_at_desk_touching_ipad.jpg" alt="A man using his IPAD to demonstrate IT fetures to another man while sitting at a desk" class="powerful_features_image">
+    <img src="/images/itinerary.png" onclick="showModal(this)" alt="/images/itinerary-large.png" class="powerful_features_image">
     <div class="w3-container">
     <h3> BOOK TRAVEL ITINERARY</h3> 
 
@@ -163,6 +163,18 @@
 
 
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- The Close Button -->
+  <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+
+  <!-- Modal Content (The Image) -->
+  <img class="modal-content" id="img01">
+
+  <!-- Modal Caption (Image Text) -->
+  <div id="caption"></div>
+</div>
 
 <footer>
 <div class="row">
