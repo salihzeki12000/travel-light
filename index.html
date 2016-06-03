@@ -285,7 +285,7 @@ var app = angular.module('travelLight', ['ngResource']);
 app.factory('Form_Service', ['$resource', function($resource) {
 
 
-var resource = $resource('http://localhost:5000/api/sendemail/:name/:email/:subject/:message',{name:'@name',email:'@email',subject:'@subject',message:'@message'});
+var resource = $resource('https://travellight.herokuapp.com/api/sendemail/:name/:email/:subject/:message',{name:'@name',email:'@email',subject:'@subject',message:'@message'});
 
 return resource;
 
@@ -300,11 +300,12 @@ app.controller('travelLightController', function($scope,$http,Form_Service) {
 $scope.contact_form_submission = function () {
 
 
-$http.get("http://localhost:5000/api/sendemail/?name="+$scope.name+"&email="+$scope.email+"&subject="+$scope.subject+"&message="+$scope.message).then(
+$http.get("https://travellight.herokuapp.com/api/sendemail/?name="+$scope.name+"&email="+$scope.email+"&subject="+$scope.subject+"&message="+$scope.message).then(
 
   function(response) {
 
 
+alert('Your email has ben sent.');
 
 
     });
