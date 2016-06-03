@@ -68,8 +68,11 @@ sendgrid.send({
   
 
   console.log(json);
-  res.json(json);
 
+var result = {'message':'Your message has been sent'}
+
+
+res.json(result);
 });
 
 
