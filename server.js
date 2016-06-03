@@ -41,3 +41,34 @@ app.listen(port, function () {
   console.log('Example app listening on port 5000!');
 
 });
+
+
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(bodyParser.json());
+
+
+app.post('/api/sendemail/', function (req, res) {
+
+var sendgrid  = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
+
+sendgrid.send({
+  to:       'udigitallondon@hotmail.com',
+  from:     'machel_slack@yahoo.co.uk',
+  subject:  'Hello World',
+  text:     'My first email through SendGrid.'
+
+}, function(err, json) {
+
+  if (err) { return console.error(err); }
+  
+  console.log(json);
+
+});
+
+
+}
+
+
