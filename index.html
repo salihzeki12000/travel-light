@@ -18,7 +18,7 @@
 
 </head>
 
-<body>
+<body ng-app="travelLight" >
 
 	<header class="container-fluid">
 
@@ -95,7 +95,7 @@
 
 <li> Showcase of images and photos for places of interest </li>
 
-<li> Lists business information and redirects to place of interests' website </li>
+<li> Lists place of interests' information and redirects to place of interests' website </li>
 
 
 </ul>
@@ -124,7 +124,7 @@
     <div class="w3-container">
     <h3> SEARCH & FILTER </h3> 
 
-<p>Travel Light allow your users to search for places they want to visit and refine their search to a particule interest. </p>
+<p>Travel Light allows your users to search for places they want to visit and refines their search to a particular interest. </p>
     </div>
     </div>
     </div>
@@ -139,7 +139,7 @@
     <div class="w3-container">
     <h3> FIND PLACES OF INTEREST </h3> 
 
-<p>AGoogle Map integrations display a user freind pop which list all business information for a place of interest.</p>
+<p>Google Map integrations displays a user freindly pop up which lists all business information for a place of interest.</p>
     </div>
     </div>
     </div></div>
@@ -151,7 +151,7 @@
     <div class="w3-container">
     <h3> BOOK TRAVEL ITINERARY</h3> 
 
-<p>User can easily add or remove place of interest to and from their itinerary and book wheir trip when they are checking out.</p>
+<p>Users can easily add or remove places of interest to and from their itinerary and confirm their trip when they are checking out.</p>
     </div>
     </div>
     </div></div>
@@ -176,7 +176,7 @@
   <div id="caption"></div>
 </div>
 
-<footer>
+<footer  ng-controller="travelLightController" >
 <div class="row">
 
   <div class="col-sm-6">  
@@ -190,11 +190,11 @@
 <p >Later he returned to the UK, where he continued his education with Kingston University (UK). Having completed his Masters programme, he went on to establish Unified Digital Media.</p>
 
 <p>UK MOBILE : +447880900087</p>
-<p>EMAIL : <a href="mailto:machel.slack@unifieddigitalmedia.co.uk"> machel.slack@unifieddigitalmedia.co.uk </a> </p>
+<p>EMAIL : <a href="mailto:machel.slack@unifieddigitalmedia.co.uk"> machel.slack@unifieddigitalmedia.co.uk </a> {{asdasd}}</p>
 
 </div>
 
-  <div class="col-sm-6" ng-app="unifieddigitalmedia" ng-controller="form_controller">  
+  <div class="col-sm-6" ng-controller="travelLightController">  
 
 <h6 class="footer_title"> CONTACT US</h6>
 
@@ -205,7 +205,7 @@
  
   
     <div class="col-sm-12">
-      <input type="text" class="form-control" id="name" placeholder="Your name (required)" required data-ng-model="name" name="name"> 
+      <input type="text" class="form-control" id="name" placeholder="Your name (required)" required ng-model="name" name="name"> 
     </div>
 
 
@@ -215,7 +215,7 @@
   <div class="form-group">
    
     <div class="col-sm-12"> 
-      <input type="email" class="form-control" id="email" placeholder="Your email (required)" required name="email" data-ng-model="email">
+      <input type="email" class="form-control" id="email" placeholder="Your email (required)" required name="email" ng-model="email">
     </div>
 
  
@@ -225,7 +225,7 @@
     <div class="form-group">
    
     <div class="col-sm-12"> 
-      <input type="text" class="form-control form_field" id="subject" placeholder="Subject" data-ng-model="subject">
+      <input type="text" class="form-control form_field" id="subject" placeholder="Subject" ng-model="subject">
     </div>
   </div>
 
@@ -233,18 +233,16 @@
 <div class="form-group">
    
     <div class="col-sm-12"> 
-     <textarea class="form-control" rows="5" id="message" placeholder="Message" data-ng-model="message"></textarea>
+     <textarea class="form-control" rows="5" id="message" placeholder="Message" ng-model="message"></textarea>
     </div>
   </div>
 
   <div class="form-group"> 
     <div class="col-sm-12">
-      <button type="button" class="btn btn-default" id="send_button" data-ng-click="contact_form_submission()" 
+     
+    <button type="button" class="btn btn-default"  ng-click="contact_form_submission()"  id ="send_button" data-ng-disabled="contactForm.name.$invalid || contactForm.email.$invalid"
+> Send </button>
 
-       data-ng-disabled="contactForm.name.$invalid || contactForm.email.$invalid"
-
-      > Send</button>
-    
 
     </div>
 
@@ -252,8 +250,7 @@
 
 </form>
 
-
-   </div>
+    </div>
 
 </div>
 
@@ -281,13 +278,14 @@
 <script type="text/javascript">
 
 
-var app = angular.module('unifieddigitalmedia', ['ngResource']);
+
+var app = angular.module('travelLight', ['ngResource']);
 
 
 app.factory('Form_Service', ['$resource', function($resource) {
 
 
-var resource = $resource('http://localhost:3000/api/queryLog/:name:email:subject:message',{name:'@name',email:'@email',subject:'@subject',message:'@message'});
+var resource = $resource('http://localhost:5000/api/sendemail/:name/:email/:subject/:message',{name:'@name',email:'@email',subject:'@subject',message:'@message'});
 
 return resource;
 
@@ -295,20 +293,22 @@ return resource;
 }]);
 
 
-app.controller('form_controller', function($scope,Form_Service) {
+app.controller('travelLightController', function($scope,$http,Form_Service) {
+
 
 
 $scope.contact_form_submission = function () {
 
 
+$http.get("http://localhost:5000/api/sendemail/?name="+$scope.name+"&email="+$scope.email+"&subject="+$scope.subject+"&message="+$scope.message).then(
+
+  function(response) {
 
 
 
-var log = Form_Service.save({name:$scope.name,email:$scope.email,subject:$scope.subject,message:$scope.message}, function() {
 
+    });
 
-  
-  });
 
 
 }
@@ -316,8 +316,6 @@ var log = Form_Service.save({name:$scope.name,email:$scope.email,subject:$scope.
 
 
 });
-
-
 
 
 </script>

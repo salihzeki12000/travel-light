@@ -50,20 +50,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-app.post('/api/sendemail/', function (req, res) {
+app.get('/api/sendemail/', function (req, res) {
+
 
 var sendgrid  = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
 
+
 sendgrid.send({
-  to:       'udigitallondon@hotmail.com',
-  from:     'machel_slack@yahoo.co.uk',
-  subject:  'Hello World',
-  text:     'My first email through SendGrid.'
+  to:       req.query.email,
+  from:     'machel.slack@unifieddigitalmedia.co.uk',
+  subject:  req.query.subject,
+  text:     req.query.message
 
 }, function(err, json) {
 
   if (err) { return console.error(err); }
   
+
   console.log(json);
 
 });

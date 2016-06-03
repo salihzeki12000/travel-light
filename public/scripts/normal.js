@@ -29,39 +29,3 @@ alert("We are sorry but our plugin is currently being reviewed by Wordpress befo
 
 
 
-var app = angular.module('travelLight', ['ngResource']);
-
-
-app.factory('Form_Service', ['$resource', function($resource) {
-
-
-var resource = $resource('http://localhost:3000/api/queryLog/:name:email:subject:message',{name:'@name',email:'@email',subject:'@subject',message:'@message'});
-
-return resource;
-
-
-}]);
-
-
-app.controller('travelLightController', function($scope,Form_Service) {
-
-
-$scope.contact_form_submission = function () {
-
-
-
-
-var log = Form_Service.save({name:$scope.name,email:$scope.email,subject:$scope.subject,message:$scope.message}, function() {
-
-
-  
-
-  });
-
-
-}
-
-
-
-});
-
