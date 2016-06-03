@@ -57,7 +57,7 @@ var sendgrid  = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.S
 
 
 sendgrid.send({
-    to:       'machel.slack@unifieddigitalmedia.co.uk',
+  to:       'machel_slack@yahoo.co.uk',
   from:     req.query.email,
   subject:  req.query.subject,
   text:     req.query.message
@@ -68,6 +68,7 @@ sendgrid.send({
   
 
   console.log(json);
+  res.json(json);
 
 });
 
